@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>SocketTest</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type ="text/javascript">
+        var startup = function () {
+            // this triggers the connection event in our server!
+            $("#responseArea").hide();
+            var socket = io.connect();
+            // we'll write all the socket stuff after the above line!
+            $('form input[name="submit"]').click(function (){
+                socket.emit("button_clicked", {
+                  name : $("form input[name='name']").val(),
+                  location : $("form select[name='location']").val(),
+                  language : $("form select[name='language']").val(),
+                  comment : $("form textarea").val()
+                });
+            });
+            socket.on('server_response', function (data){
+                console.log(data);
+                $("#responseArea span").text(data.toString());
+                $("#responseArea").show();
+            });
+        };
+    </script>
+</head>
+<body onload="startup()">
+    <p id="responseArea">Server response: <span></span></p>
+    <form action="" method="post">
+        <label for="name"></label>
+        <input type="text" name="name" value="">
+        <label for="location">Dojo Location:</label>
+        <select class="" name="location">
+          <option value="seattle">Seattle</option>
+          <option value="mountain view">Mountain View</option>
+        </select>
+        <label for="language">Favorite Language</label>
+        <select class="" name="language">
+          <option value="c++">C++</option>
+          <option value="c">C</option>
+          <option value="c#">C#</option>
+        </select>
+        <textarea name="comment" rows="8" cols="80"></textarea>
+        <input type="button" name="submit" value="Submit">
+    </form>
+</body>
+</html>
