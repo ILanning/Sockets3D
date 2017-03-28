@@ -1,0 +1,17 @@
+Preventing keyboard inputs from causing things to happen elsewhere on the page/scroll up and down/etc.
+http://stackoverflow.com/questions/4470417/how-do-i-consume-a-key-event-in-javascript-so-that-it-doesnt-propagate
+
+WebGL:
+http://learningwebgl.com/blog/?p=571
+https://github.com/gpjt/webgl-lessons
+
+Graphics in general/OpenGL:
+https://open.gl/ (Getting started in C++, not super relevant to us but may be interesting)
+
+Cookies:
+https://www.w3schools.com/js/js_cookies.asp
+https://github.com/js-cookie/js-cookie/tree/latest#readme
+
+Matrix/Vector math:
+https://github.com/jcoglan/sylvester (Our library for this)
+https://www.gamedev.net/resources/_/technical/math-and-physics/vectors-and-matrices-a-primer-r3064
