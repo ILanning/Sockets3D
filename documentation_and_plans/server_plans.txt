@@ -1,0 +1,7 @@
+Set up a basic server where the clients respond once a frame with a movement vector if movement has occurred;
+The server normalizes all movement vectors, multiplies them by a speed value, and full-broadcasts all changed positions once a frame
+Clients are given an ID on joining, then the client's ID, color, name, and starting position is broadcast to all other clients
+Clients establish a name before connecting which is then associated with their account
+
+
+For testing have a textual representation of each client (id, name, color, and location)

@@ -152,6 +152,10 @@ $RECYCLE.BIN/
 # Python
 *.pyc
 
+# Javascript
+.tern-project
+npm-debug.log.*
+
 # Non-Code Folders
 Content Files/
 Meta Development Files/
