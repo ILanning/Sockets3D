@@ -4,21 +4,21 @@ var Vector2 = require("./../custom_libs/Vector2.js");
 describe("Vector2", function(){
   context("can be initialized with two values", function(){
     it("assigns x to x and y to y", function(){
-      let result = new Vector2(3, 4);
+      var result = new Vector2(3, 4);
       assert.equal(3, result.x);
       assert.equal(4, result.y);
     });
   });
   context("when passed only one value", function(){
     it("assigns both x and y to equal that value", function(){
-      let result = new Vector2(3);
+      var result = new Vector2(3);
       assert.equal(3, result.x);
       assert.equal(3, result.y);
     });
   });
   context("or none", function(){
     it("assigns both to zero", function(){
-      let result = new Vector2();
+      var result = new Vector2();
       assert.equal(0, result.x);
       assert.equal(0, result.y);
     });

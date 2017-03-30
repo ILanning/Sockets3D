@@ -34,12 +34,14 @@ module.exports = function(io){
         io.emit("print_data", data);
       });
       //                               --End Examples--
+      //Announce the new connection to the rest of the server.  Include starting position, name, ID, and color here eventually
+      socket.broadcast.emit("announce_join", { object : Object });
 
-
+      //Handle a socket connection telling the server about how they've moved this frame
       socket.on("log_movement", function(data){
         console.log(`Client ${socket.id}: Movement registered.\n    Vector: (X:${data.movement.x}, Y:${data.movement.y})`);
         var movement = new Vector2(data.movement.x, data.movement.y);
-        frameData.push({ id : socket.id, movement : movement });
+        frameData[socket.id] = { movement : movement };
       });
   });
 };
