@@ -1,7 +1,8 @@
 ﻿var express = require("express");
 var bp = require("body-parser");
 var path = require("path");
-
+var fs = require("fs");
+var JSON = require("json3");
 var port = 8000;
 var app = express();
 app.use(express.static(path.join(__dirname, "./client")));
@@ -19,51 +20,26 @@ app.get('/', function(req, res){
 var server = app.listen(port, function(){ console.log("Listening on " + port) });
 var io = require("socket.io").listen(server);
 
-var frameData = [];
-var frameCount = 0;
+var frameData = {};
 var nextID = 0;
 var playerSpeed = 0.06;
-var lastFrame = Date.now();
-var frameLengthsIter = 0;
-var frameLengths = Array(70);
-var prevSecond = Math.floor(lastFrame / 1000);
-var startSecond = prevSecond;
-
+var timingMonitor = require("./server/timing.js");
 ///Calls the function found at this path with the argument "io"
-require(path.join(__dirname, "server/socketRoutes.js"))(io);
-
+require("./server/socketRoutes.js")(io);
+var dataStore = require("./server/models/users.js");
 var handleMovements = function(){
-  for (let i = 0; i < frameData.length; i++){
-    frameData[i].movement = frameData[i].movement.normalized();
-    frameData[i].movement.scale(playerSpeed);
+  for (var key in frameData){
+    frameData[key].movement = frameData[key].movement.normalized();
+    frameData[key].movement.scale(playerSpeed);
   }
-};
-
-var handleTiming = function(){
-  var currFrame = Date.now();
-  frameLengths[frameLengthsIter] = currFrame - lastFrame;
-  frameLengthsIter = (frameLengthsIter + 1) % frameLengths.length;
-  var currSecond = Math.floor(currFrame / 1000);
-  if(currSecond > prevSecond){
-    prevSecond = currSecond;
-    let average = 0;
-    for(let i = 0; i < frameLengths.length; i++){
-      average += frameLengths[i];
-    }
-    average /= frameLengths.length;
-    process.stdout.clearLine();
-    process.stdout.cursorTo(0);
-    process.stdout.write(`Second: ${currSecond - startSecond}  Frame Rate: ${Math.round(average * 1000) / 1000}`);
-  }
-  lastFrame = currFrame;
 };
 
 var serverLoop = function(){
+  timingMonitor.update();
   handleMovements();
-  handleTiming();
   io.emit("frame_update", frameData);
-  frameCount++;
-  frameData = [];
+  frameData = {};
+  timingMonitor.log();
   setTimeout(serverLoop, 15);
 }
 
