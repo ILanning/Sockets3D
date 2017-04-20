@@ -33,7 +33,7 @@ var startSecond = prevSecond;
 require(path.join(__dirname, "server/socketRoutes.js"))(io);
 
 var handleMovements = function(){
-  for (let i = 0; i < frameData.length; i++){
+  for (var i = 0; i < frameData.length; i++){
     frameData[i].movement = frameData[i].movement.normalized();
     frameData[i].movement.scale(playerSpeed);
   }
@@ -44,10 +44,11 @@ var handleTiming = function(){
   frameLengths[frameLengthsIter] = currFrame - lastFrame;
   frameLengthsIter = (frameLengthsIter + 1) % frameLengths.length;
   var currSecond = Math.floor(currFrame / 1000);
+  
   if(currSecond > prevSecond){
     prevSecond = currSecond;
-    let average = 0;
-    for(let i = 0; i < frameLengths.length; i++){
+    var average = 0;
+    for(var i = 0; i < frameLengths.length; i++){
       average += frameLengths[i];
     }
     average /= frameLengths.length;

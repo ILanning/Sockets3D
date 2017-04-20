@@ -7,9 +7,10 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type ="text/javascript" src="/js-cookie/js-cookie.js"></script>
-    <script type ="text/javascript" src="/Vector2.js"></script>
+    <script type ="text/javascript" src="/Vector2.js"></script>   
     <script type ="text/javascript">
-      var startup = function () {
+      var startup = function () {       
+
         // this triggers the connection event in our server!
         $("#responseArea").hide();
         var socket = io.connect();
@@ -30,12 +31,19 @@
           $("#responseArea").show();
         });
       };
-    </script>
+    
+    </script>   
+    
   </head>
   <body onload="startup()">
     <p id="responseArea">Server response: <span></span></p>
     <button type="button" name="emit">Emit</button>
     <button type="button" name="broadcast">Broadcast</button>
     <button type="button" name="full_broadcast">Full Broadcast</button>
+    <canvas id="glCanvas" width="640" height="480">
+      Your browser doesn't appear to support the 
+      <code>&lt;canvas&gt;</code> element.
+    </canvas>
+
   </body>
 </html>

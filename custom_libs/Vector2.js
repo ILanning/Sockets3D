@@ -37,12 +37,12 @@ Vector2.prototype.magnitude = function(){
   if(this.x === 0 && this.y === 0){
     return 0;
   }
-  let magnitudeSquared = (this.x * this.x) + (this.y * this.y);
+  var magnitudeSquared = (this.x * this.x) + (this.y * this.y);
   return Math.sqrt(magnitudeSquared);
 };
 ///Returns a vector pointing in the same direction, but with a magnitude of one.
 Vector2.prototype.normalized = function(){
-  let mag = this.magnitude();
+  var mag = this.magnitude();
   if(mag === 0){
     return new Vector2();
   }
